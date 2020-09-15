@@ -6,7 +6,7 @@ namespace app\config;
 
 class Config
 {
-    public static $config = [
+    private $config = [
         'db' => array (
             'dbname' => 'lynxx_db',
             'host' => 'localhost',
@@ -15,5 +15,15 @@ class Config
             'charset' => 'utf8',
             'sqlType' => 'mysql'
         ),
+        'test' => 123
     ];
+
+    /**
+     * @param string $name
+     * @return string|array
+     */
+    public function __get(string $name)
+    {
+        return $this->config[$name] ?? null;
+    }
 }

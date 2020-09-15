@@ -1,6 +1,8 @@
 <?php
 
-spl_autoload_register('autoLoad');
+namespace Lynxx;
+
+spl_autoload_register('Lynxx\autoLoad');
 
 /**
  * autoload classes
@@ -14,7 +16,7 @@ function autoLoad($className){
     if ($lastNsPos = strrpos($className, '\\')) {
         $namespace = substr($className, 0, $lastNsPos);
         $className = substr($className, $lastNsPos + 1);
-        $classPath = __DIR__ . $sep . $sep . str_replace('\\', $sep, $namespace) . $sep;
+        $classPath = __DIR__ . '/..' . $sep . str_replace('\\', $sep, $namespace) . $sep;
         require_once($classPath . $className.'.php');
     }
 }
