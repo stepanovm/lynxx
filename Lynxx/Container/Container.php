@@ -4,48 +4,38 @@
 namespace Lynxx\Container;
 
 
-use Lynxx\Utils;
+use http\Exception\InvalidArgumentException;
 
 class Container
 {
-    /**
-     * @var array
-     */
-    private static $singltones = [];
+    private $singltones = [];
+    private $definitions = [];
 
-    private function __construct()
+    public function get($id)
     {
+        if(array_key_exists($id, $this->singltones)) {
+            return $this->singltones[$id];
+        }
+
+        if (!array_key_exists($id, $this->definitions)) {
+            throw new ServiceNotFoundException('service ' . $id . ' not found');
+        }
+
+        $definition = $this->definitions[$id];
+        if ($definition instanceof \Closure) {
+            $this->singltones[$id] = $definition();
+        } else {
+            $this->singltones[$id] = $definition;
+        }
+
+        return $this->singltones[$id];
     }
 
-    /**
-     * @param string $class
-     * @return mixed
-     * @throws \ReflectionException
-     */
-    public static function get(string $class)
+    public function set($id, $value)
     {
-        if (array_key_exists($class, self::$singltones)) {
-            return self::$singltones[$class];
+        if(array_key_exists($id, $this->definitions)){
+            throw new \InvalidArgumentException('service ' . $id . ' already exist');
         }
-
-        $refl = new \ReflectionClass($class);
-        $classArgs = [];
-
-        if ($refl->hasMethod('__construct')){
-            $refl_args = $refl->getMethod('__construct')->getParameters();
-            if (isset($refl_args)) {
-                foreach ($refl_args as $arg) {
-                    $argClassName = $arg->getClass();
-                    if (is_null($argClassName)) {
-                        throw new \ReflectionException('unknown argument type ' . $arg);
-                    }
-                    $classArgs[] = self::get($argClassName->getName());
-                }
-            }
-        }
-
-        $obj = new $class(...$classArgs);
-        self::$singltones[$class] = $obj;
-        return $obj;
+        $this->definitions[$id] = $value;
     }
 }

@@ -8,28 +8,25 @@
  */
 
 /** autoload */
-require __DIR__ . '/../Lynxx/autoload.php';
 require __DIR__ . '/../vendor/autoload.php';
 
 /** System configuration */
 error_reporting(E_ALL);
-if (version_compare(phpversion(), '7.2', '<') == true) { die ('PHP7.2 Only'); }
-date_default_timezone_set('Europe/Moscow');
-//set_exception_handler('\app\core\Utils::handleException');
 
 session_start();
 
-$routes = (new \Lynxx\RoutesMap())->init()->getRoutes();
-echo \Lynxx\Utils::debugObj($routes);
+$container = new \Lynxx\Container\Container();
+$container->set('helloMessage', 'Hello, Maks!');
 
-$config = new \app\config\Config();
-echo \Lynxx\Utils::debugObj((new \app\config\Config())->test);
+$response = (new \Zend\Diactoros\Response\HtmlResponse('Hello from Zend'))
+    ->withHeader('X-Developer', 'StepanovM');
 
+$em = new
 
-$request = \Lynxx\Container\Container::get(\Lynxx\Request\Request::class);
-echo \Lynxx\Utils::debugObj($request);
+header('HTTP/1.0 ' . $response->getStatusCode() . ' ' . $response->getReasonPhrase());
+foreach ($response->getHeaders() as $name => $values) {
+    header($name . ':' . implode(',' , $values));
+}
+echo $response->getBody();
 
-$request->test = 'privet';
-
-$request_new = \Lynxx\Container\Container::get(\Lynxx\Request\Request::class);
-echo \Lynxx\Utils::debugObj($request_new);
+echo $container->get('helloMessage');

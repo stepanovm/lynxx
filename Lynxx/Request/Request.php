@@ -4,11 +4,12 @@
 namespace Lynxx\Request;
 
 
-use app\config\Config;
-use app\Controller\HomeController;
+use Psr\Http\Message\ServerRequestInterface;
 
 class Request
 {
+
+
     /**
      * @var Url
      */
