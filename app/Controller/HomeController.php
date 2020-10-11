@@ -9,7 +9,7 @@ use Lynxx\Utils;
 
 class HomeController extends AbstractController
 {
-    public function index()
+    public function home()
     {
         echo 'Hello, World! =)';
 

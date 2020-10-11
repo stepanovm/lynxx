@@ -1,5 +1,6 @@
 <?php
 
 $routes = [
-    '/' => 'HomeController:index',
+    '/' => [\app\Controller\HomeController::class, 'home'],
+    '/test/(<?id>\d+)' => [\app\Controller\HomeController::class, 'test'],
 ];

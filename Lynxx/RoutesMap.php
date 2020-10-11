@@ -20,7 +20,7 @@ class RoutesMap
         $routes = [];
         include_once __DIR__ . '/../app/config/routes.php';
         if (!is_array($routes)) {
-            throw new \Exception('unable to read route');
+            throw new Ex('unable to read route');
         }
         $this->routes = $routes;
         return $this;
