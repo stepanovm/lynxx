@@ -11,7 +11,7 @@ use Lynxx\Router\Route;
 use Lynxx\Router\RouteNotFoundException;
 use Lynxx\Router\Router;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 class MatchRouteTest extends TestCase
 {
@@ -26,7 +26,7 @@ class MatchRouteTest extends TestCase
 
         self::assertNotEmpty($router->getRoutesMap());
         self::assertInstanceOf(Route::class, $router->getRoute());
-        self::assertInstanceOf(ServerRequestInterface::class, $router->getRequest());
+        self::assertInstanceOf(RequestInterface::class, $router->getRequest());
 
         self::assertEquals(HomeController::class, $router->getController());
         self::assertEquals('test', $router->getAction());

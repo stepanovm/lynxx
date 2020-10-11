@@ -58,9 +58,9 @@ class Router
     }
 
     /**
-     * @return ServerRequestInterface
+     * @return RequestInterface
      */
-    public function getRequest(): ServerRequestInterface
+    public function getRequest(): RequestInterface
     {
         return $this->request;
     }
