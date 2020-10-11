@@ -4,7 +4,7 @@
 namespace Lynxx;
 
 
-class Bootstrap
+class Config
 {
 
 }
