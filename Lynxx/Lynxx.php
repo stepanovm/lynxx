@@ -5,7 +5,9 @@ namespace Lynxx;
 
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequestFactory;
+use Lynxx\Router\RouteNotFoundException;
 use Lynxx\Router\Router;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Dotenv\Dotenv;
 
 class Lynxx
@@ -14,21 +16,30 @@ class Lynxx
     {
         $this->initSystemParams();
 
-        // init environment
-        $dotenv = new Dotenv(true);
-        $dotenv->load(__DIR__.'/../.env');
-
         $request = ServerRequestFactory::fromGlobals();
 
-        $router = new Router($request);
+        /** @var array $routes just require file from config's path */
+        require __DIR__ . '/../app/config/routes.php';
+
+        $router = new Router($request, $routes);
+
         $controller = $router->getController();
-        die();
         $action = $router->getAction();
+        $queryAttributes = $router->getAttributes();
 
-        $reponse = $controller->$action();
+        foreach ($queryAttributes as $attribute => $value) {
+            $request = $request->withAttribute($attribute, $value);
+        }
 
-        $test = new Response\TextResponse('hello');
-        echo $test->getBody();
+        $controller = new $controller();
+        if(!$controller instanceof AbstractController){
+            throw new RouteNotFoundException('bad controller class');
+        }
+
+        /** @var ResponseInterface $response */
+        $response = $controller->$action($request);
+
+        echo $response->getBody();
     }
 
     public function initSystemParams()
@@ -36,5 +47,8 @@ class Lynxx
         /** System configuration */
         error_reporting(E_ALL);
         session_start();
+
+        $dotenv = new Dotenv(true);
+        $dotenv->load(__DIR__.'/../.env');
     }
 }

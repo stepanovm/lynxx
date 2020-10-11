@@ -2,5 +2,5 @@
 
 $routes = [
     '/' => [\app\Controller\HomeController::class, 'home'],
-    '/test/(<?id>\d+)' => [\app\Controller\HomeController::class, 'test'],
+    '/test/(?<name>\w+)/(?<id>\d+)' => [\app\Controller\HomeController::class, 'test'],
 ];

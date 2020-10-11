@@ -4,8 +4,9 @@
  * php vendor/phpunit/phpunit/phpunit tests --bootstrap ./Lynxx/autoload.php
  */
 
-namespace Lynxx\Container;
+namespace tests\Lynxx\Container;
 
+use Lynxx\Container\Container;
 use PHPUnit\Framework\TestCase;
 
 class ContainerTest extends TestCase

@@ -24,7 +24,8 @@
     "autoload": {
         "psr-4": {
             "Lynxx\\": "Lynxx",
-            "app\\": "app"
+            "app\\": "app",
+            "tests\\": "tests"
         }
     },
     "scripts": {
