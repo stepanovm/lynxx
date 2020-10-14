@@ -40,7 +40,7 @@ class ContainerTest extends TestCase
         $container = new Container();
         $id = 1;
 
-        $container->set($id, function() {
+        $container->set($id, function () {
             return new \stdClass();
         });
 
@@ -57,4 +57,17 @@ class ContainerTest extends TestCase
 
         $container->get($id);
     }
+
+    public function testCreateObjWithNoServiceRegistered()
+    {
+        $container = new Container();
+
+        self::assertNotNull($obj = $container->get(NoRegisteredAtContainerClass::class));
+        self::assertInstanceOf(NoRegisteredAtContainerClass::class, $obj);
+    }
+}
+
+class NoRegisteredAtContainerClass
+{
+
 }
