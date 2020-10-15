@@ -7,6 +7,8 @@
  */
 
 require __DIR__ . '/../vendor/autoload.php';
+$container = new \Lynxx\Container\Container();
 
-$app = new \Lynxx\Lynxx();
+$app = $container->get(\Lynxx\Lynxx::class);
+
 $app->run();

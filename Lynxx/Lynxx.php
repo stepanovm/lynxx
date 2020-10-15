@@ -3,41 +3,49 @@
 
 namespace Lynxx;
 
-use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequestFactory;
+use Lynxx\Container\Container;
 use Lynxx\Router\RouteNotFoundException;
 use Lynxx\Router\Router;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Dotenv\Dotenv;
 
 class Lynxx
 {
+    private $container;
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
     public function run()
     {
         $this->initSystemParams();
 
+        /** @var Router $router */
+        $router = $this->container->get(Router::class);
+
         $request = ServerRequestFactory::fromGlobals();
 
-        /** @var array $routes just require file from config's path */
-        require __DIR__ . '/../app/config/routes.php';
-
-        $router = new Router($request, $routes);
-
-        $controller = $router->getController();
-        $action = $router->getAction();
+        $controllerClass = $router->getControllerClass();
+        $actionName = $router->getActionName();
         $queryAttributes = $router->getAttributes();
 
         foreach ($queryAttributes as $attribute => $value) {
             $request = $request->withAttribute($attribute, $value);
         }
+        $this->container->set('request', $request);
 
-        $controller = new $controller();
+        $controller = $this->container->get($controllerClass);
         if(!$controller instanceof AbstractController){
             throw new RouteNotFoundException('bad controller class');
         }
 
         /** @var ResponseInterface $response */
-        $response = $controller->$action($request);
+        $response = $controller->$actionName();
 
         echo $response->getBody();
     }

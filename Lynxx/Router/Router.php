@@ -42,12 +42,12 @@ class Router
         }
     }
 
-    public function getController(): string
+    public function getControllerClass(): string
     {
         return $this->route->controller;
     }
 
-    public function getAction(): string
+    public function getActionName(): string
     {
         return $this->route->action;
     }

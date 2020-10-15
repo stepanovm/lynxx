@@ -7,10 +7,13 @@
 namespace tests\Lynxx\Container;
 
 use Lynxx\Container\Container;
+use Lynxx\Container\ContainerException;
+use Lynxx\Container\ServiceNotFoundException;
 use PHPUnit\Framework\TestCase;
 
 class ContainerTest extends TestCase
 {
+
     public function testPrimitives()
     {
         $container = new Container();
@@ -25,7 +28,7 @@ class ContainerTest extends TestCase
         self::assertEquals($value, $container->get($name));
     }
 
-    public function testExist()
+    public function testHas()
     {
         $container = new Container();
         $id = 'existing test';
@@ -38,9 +41,8 @@ class ContainerTest extends TestCase
     public function testCallback()
     {
         $container = new Container();
-        $id = 1;
 
-        $container->set($id, function () {
+        $container->set($id = 1, function () {
             return new \stdClass();
         });
 
@@ -52,22 +54,60 @@ class ContainerTest extends TestCase
     {
         $container = new Container();
         $id = 'badId';
-
-        self::expectExceptionMessage('service ' . $id . ' not found');
-
+        self::expectException(ServiceNotFoundException::class);
         $container->get($id);
     }
 
-    public function testCreateObjWithNoServiceRegistered()
+    public function testGetClassNyName()
     {
         $container = new Container();
+        $foo = $container->get(\stdClass::class);
+        $bar = $container->get(\stdClass::class);
 
-        self::assertNotNull($obj = $container->get(NoRegisteredAtContainerClass::class));
-        self::assertInstanceOf(NoRegisteredAtContainerClass::class, $obj);
+        self::assertInstanceOf(\stdClass::class, $bar);
+        self::assertEquals($foo, $bar);
     }
+
+    public function testClassWithConstructor()
+    {
+        $container = new Container();
+        /** @var A $obj */
+        $obj = $container->get(A::class);
+
+        self::assertInstanceOf(B::class, $obj->b);
+        self::assertEquals(15, $obj->int);
+        self::assertIsArray($obj->array);
+    }
+/*
+    public function testBadClassArgument()
+    {
+        $container = new Container();
+        self::expectException(ContainerException::class);
+        $container->get(C::class);
+    }
+*/
+
 }
 
-class NoRegisteredAtContainerClass
-{
 
+class B {}
+class A
+{
+    public $b;
+    public $array;
+    public $int;
+
+    public function __construct(B $b, array $array, int $int = 15)
+    {
+        $this->b = $b;
+        $this->array = $array;
+        $this->int = $int;
+    }
+}
+class C {
+    public $test;
+    public function __construct(string $test)
+    {
+        $this->test = $test;
+    }
 }

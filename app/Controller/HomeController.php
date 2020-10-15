@@ -11,15 +11,27 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class HomeController extends AbstractController
 {
-    public function home(RequestInterface $request)
+    /** @var ServerRequestInterface  */
+    private $request;
+
+    /**
+     * HomeController constructor.
+     * @param ServerRequestInterface $request
+     */
+    public function __construct(ServerRequestInterface $request)
+    {
+        $this->request = $request;
+    }
+
+    public function home()
     {
         return new TextResponse('Hello, Maks!');
     }
 
-    public function test(ServerRequestInterface $request)
+    public function test()
     {
-        $id = $request->getAttribute('id');
-        $name = $request->getAttribute('name');
+        $id = $this->request->getAttribute('id');
+        $name = $this->request->getAttribute('name');
         return new JsonResponse(['action_response' => $id, 'name' => $name]);
     }
 }

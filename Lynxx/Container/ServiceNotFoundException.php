@@ -4,7 +4,10 @@
 namespace Lynxx\Container;
 
 
-class ServiceNotFoundException extends \InvalidArgumentException
+use DomainException;
+use Psr\Container\NotFoundExceptionInterface;
+
+class ServiceNotFoundException extends DomainException implements NotFoundExceptionInterface
 {
 
 }
