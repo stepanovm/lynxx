@@ -3,11 +3,10 @@
 
 namespace Lynxx;
 
-use Laminas\Diactoros\ServerRequestFactory;
 use Lynxx\Container\Container;
 use Lynxx\Router\RouteNotFoundException;
 use Lynxx\Router\Router;
-use Psr\Container\ContainerInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Dotenv\Dotenv;
@@ -28,16 +27,17 @@ class Lynxx
         /** @var Router $router */
         $router = $this->container->get(Router::class);
 
-        $request = ServerRequestFactory::fromGlobals();
-
         $controllerClass = $router->getControllerClass();
         $actionName = $router->getActionName();
         $queryAttributes = $router->getAttributes();
 
+        $request = $router->getRequest();
+
         foreach ($queryAttributes as $attribute => $value) {
             $request = $request->withAttribute($attribute, $value);
         }
-        $this->container->set('request', $request);
+        $this->container->set(RequestInterface::class, $request);
+
 
         $controller = $this->container->get($controllerClass);
         if(!$controller instanceof AbstractController){

@@ -28,8 +28,8 @@ class MatchRouteTest extends TestCase
         self::assertInstanceOf(Route::class, $router->getRoute());
         self::assertInstanceOf(RequestInterface::class, $router->getRequest());
 
-        self::assertEquals(HomeController::class, $router->getController());
-        self::assertEquals('test', $router->getAction());
+        self::assertEquals(HomeController::class, $router->getControllerClass());
+        self::assertEquals('test', $router->getActionName());
         self::assertEquals('Maks', $router->getAttributes()['name']);
         self::assertEquals(44, $router->getAttributes()['id']);
 

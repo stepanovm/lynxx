@@ -6,12 +6,11 @@ namespace app\Controller;
 use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\TextResponse;
 use Lynxx\AbstractController;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class HomeController extends AbstractController
 {
-    /** @var ServerRequestInterface  */
+    /** @var ServerRequestInterface */
     private $request;
 
     /**

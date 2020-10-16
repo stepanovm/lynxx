@@ -6,9 +6,12 @@
  * Main application entry point
  */
 
-require __DIR__ . '/../vendor/autoload.php';
-$container = new \Lynxx\Container\Container();
+use Lynxx\Container\Container;
+use Lynxx\Lynxx;
 
-$app = $container->get(\Lynxx\Lynxx::class);
+require __DIR__ . '/../vendor/autoload.php';
+$container = new Container();
+
+$app = $container->get(Lynxx::class);
 
 $app->run();
