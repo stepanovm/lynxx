@@ -1,6 +1,6 @@
 <?php
 
-$conf = [
+return [
     'application_mode' => getenv('APP_MODE'),
     'db' => array (
         'dbname' => getenv('DB_NAME'),

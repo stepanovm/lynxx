@@ -4,7 +4,7 @@
 namespace app\Controller;
 
 
-use Laminas\Diactoros\Response;
+use Laminas\Diactoros\Response\HtmlResponse;
 use Lynxx\AbstractController;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -29,7 +29,7 @@ class TestController extends AbstractController
                 <input type='submit' value='ok'>
             </form>
         ";
-        return new Response\HtmlResponse(
+        return new HtmlResponse(
             $form
             . '<br />hello from test controller with request:<br/> <pre>'
             . print_r($this->request->getParsedBody(), true)

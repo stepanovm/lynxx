@@ -8,7 +8,6 @@ use Lynxx\Router\RouteNotFoundException;
 use Lynxx\Router\Router;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Dotenv\Dotenv;
 
 class Lynxx
@@ -32,7 +31,6 @@ class Lynxx
         $queryAttributes = $router->getAttributes();
 
         $request = $router->getRequest();
-
         foreach ($queryAttributes as $attribute => $value) {
             $request = $request->withAttribute($attribute, $value);
         }
@@ -54,7 +52,7 @@ class Lynxx
     {
         /** System configuration */
         error_reporting(E_ALL);
-        session_start();
+        //session_start();
 
         $dotenv = new Dotenv(true);
         $dotenv->load(__DIR__.'/../.env');

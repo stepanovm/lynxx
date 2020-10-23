@@ -7,10 +7,13 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 return [
+    'config' => function() {
+        return $config = require 'config.php';
+    },
     'routes' => function () {
         return $routes = require 'routes.php';
     },
-    'default_request' => function(ContainerInterface $container) {
+    'default_request' => function() {
         return ServerRequestFactory::fromGlobals();
     },
 
