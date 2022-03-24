@@ -1,36 +1,31 @@
 <?php
 
-
 namespace app\Controller;
 
-use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\TextResponse;
 use Lynxx\AbstractController;
+use Lynxx\View;
 use Psr\Http\Message\ServerRequestInterface;
+
 
 class HomeController extends AbstractController
 {
-    /** @var ServerRequestInterface */
-    private $request;
+    private View $view;
 
-    /**
-     * HomeController constructor.
-     * @param ServerRequestInterface $request
-     */
-    public function __construct(ServerRequestInterface $request)
+    public function __construct(View $view, ServerRequestInterface $request)
     {
-        $this->request = $request;
+        $this->view = $view;
     }
 
     public function home()
     {
-        return new TextResponse('Hello, Maks!');
+        return $this->view->render('home.php', [
+            'name' => 'Guest'
+        ]);
     }
 
     public function test()
     {
-        $id = $this->request->getAttribute('id');
-        $name = $this->request->getAttribute('name');
-        return new JsonResponse(['action_response' => $id, 'name' => $name]);
+        return new TextResponse('Hello, Maks!');
     }
 }

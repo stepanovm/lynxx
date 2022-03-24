@@ -1,6 +1,9 @@
 <?php
 
+use bin\Command\AppBuild\Compressor\CssCompressor;
+use bin\Command\AppBuild\Compressor\JsCompressor;
 use Laminas\Diactoros\ServerRequestFactory;
+use Lynxx\DB;
 use Lynxx\Router\Router;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
@@ -13,8 +16,12 @@ return [
     'routes' => function () {
         return $routes = require 'routes.php';
     },
-    'default_request' => function() {
-        return ServerRequestFactory::fromGlobals();
+    'default_request' => ServerRequestFactory::fromGlobals(),
+    'compressor_Js' => function (ContainerInterface $container) {
+        return new JsCompressor();
+    },
+    'compressor_Css' => function (ContainerInterface $container) {
+        return new CssCompressor();
     },
 
     Router::class => function (ContainerInterface $container) {
@@ -27,5 +34,9 @@ return [
 
     ContainerInterface::class => function (ContainerInterface $container) {
         return $container;
+    },
+
+    PDO::class => function (ContainerInterface $container) {
+        return DB::instance();
     },
 ];

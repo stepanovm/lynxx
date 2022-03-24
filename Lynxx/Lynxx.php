@@ -3,20 +3,25 @@
 
 namespace Lynxx;
 
-use Lynxx\Container\Container;
 use Lynxx\Router\RouteNotFoundException;
 use Lynxx\Router\Router;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Dotenv\Dotenv;
 
 class Lynxx
 {
-    private $container;
+    private static ContainerInterface $container;
 
-    public function __construct(Container $container)
+    public function __construct(ContainerInterface $container)
     {
-        $this->container = $container;
+        self::$container = $container;
+    }
+
+    public static function getContainer(): ContainerInterface
+    {
+        return self::$container;
     }
 
     public function run()
@@ -24,7 +29,7 @@ class Lynxx
         $this->initSystemParams();
 
         /** @var Router $router */
-        $router = $this->container->get(Router::class);
+        $router = self::$container->get(Router::class);
 
         $controllerClass = $router->getControllerClass();
         $actionName = $router->getActionName();
@@ -34,18 +39,25 @@ class Lynxx
         foreach ($queryAttributes as $attribute => $value) {
             $request = $request->withAttribute($attribute, $value);
         }
-        $this->container->set(RequestInterface::class, $request);
+        self::$container->set(RequestInterface::class, $request);
 
 
-        $controller = $this->container->get($controllerClass);
-        if(!$controller instanceof AbstractController){
+        $controller = self::$container->get($controllerClass);
+        if (!$controller instanceof AbstractController) {
             throw new RouteNotFoundException('bad controller class');
         }
 
-        /** @var ResponseInterface $response */
         $response = $controller->$actionName();
 
-        echo $response->getBody();
+        if ($response instanceof ResponseInterface) {
+            foreach ($response->getHeaders() as $k => $values) {
+                foreach ($values as $v) {
+                    header(sprintf('%s: %s', $k, $v), false);
+                }
+            }
+            echo $response->getBody();
+        }
+
     }
 
     public function initSystemParams()
@@ -55,6 +67,16 @@ class Lynxx
         //session_start();
 
         $dotenv = new Dotenv(true);
-        $dotenv->load(__DIR__.'/../.env');
+        $dotenv->load(__DIR__ . '/../.env');
+    }
+
+    public static function utils()
+    {
+
+    }
+
+    public static function debugPrint($data): ?string
+    {
+        return '<pre>'.print_r($data, true).'</pre>';
     }
 }
