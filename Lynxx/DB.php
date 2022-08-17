@@ -3,6 +3,7 @@
 
 namespace Lynxx;
 
+use Lynxx\Container\Container;
 use PDO;
 
 class DB
@@ -21,7 +22,8 @@ class DB
     {
         // create new PDO, if not exist
         if(!isset(self::$pdo)){
-            $dbInfo = Lynxx::getContainer()->get('config')['db'];
+            $container = new Container();
+            $dbInfo = $container->get('config')['db'];
             $dsn = $dbInfo['sqlType'].':host='.$dbInfo['host'].';dbname='.$dbInfo['dbname'].';charset='.$dbInfo['charset'];
             $pdo_params = array (
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

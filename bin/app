@@ -1,5 +1,10 @@
 <?php
 
+use bin\Command\AppBuild\BuildCommand;
+use bin\Command\Migration\CommandCreateMigration;
+use bin\Command\Migration\CommandMigrate;
+use bin\Command\Migration\CommandMigrationStatus;
+use bin\Command\Migration\CommandRollBack;
 use Lynxx\Container\Container;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Dotenv\Dotenv;
@@ -14,6 +19,10 @@ $dotenv->load(__DIR__.'/../.env');
 $application = new Application();
 $container = new Container();
 
-$application->add($container->get(\bin\Command\AppBuild\BuildCommand::class));
+$application->add($container->get(BuildCommand::class));
+$application->add($container->get(CommandMigrate::class));
+$application->add($container->get(CommandCreateMigration::class));
+$application->add($container->get(CommandRollBack::class));
+$application->add($container->get(CommandMigrationStatus::class));
 
 $application->run();
