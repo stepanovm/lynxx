@@ -16,6 +16,7 @@ return [
     'routes' => function () {
         return $routes = require 'routes.php';
     },
+    'mappersMap' => require 'mappers_map.php',
     'default_request' => ServerRequestFactory::fromGlobals(),
     'compressor_Js' => function (ContainerInterface $container) {
         return new JsCompressor();

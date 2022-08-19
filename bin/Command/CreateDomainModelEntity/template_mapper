@@ -1,0 +1,42 @@
+<?php
+
+namespace app\model\Entity\@@entityname@@\mapper;
+
+use app\model\core\Collection;
+use app\model\Entity\@@entityname@@\@@entityname@@;
+
+class @@entityname@@Mapper extends \app\model\core\Mapper
+{
+
+    /**
+     * @inheritDoc
+     */
+    public function getProperties(): array
+    {
+        // TODO: Implement getProperties() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTable(): string
+    {
+        // TODO: Implement getTable() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function targetEntity()
+    {
+        return @@entityname@@::class;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCollection(array $raw): Collection
+    {
+        return new @@entityname@@Collection($raw, $this);
+    }
+}

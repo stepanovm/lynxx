@@ -1,0 +1,18 @@
+<?php
+
+namespace app\model\Entity\@@entityname@@\mapper;
+
+use app\model\core\Collection;
+use app\model\Entity\@@entityname@@\@@entityname@@;
+
+class @@entityname@@Collection extends Collection
+{
+    /**
+     * @return string
+     */
+    function targetClass(): string
+    {
+        return @@entityname@@::class;
+    }
+
+}

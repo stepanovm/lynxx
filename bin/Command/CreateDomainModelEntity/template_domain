@@ -1,0 +1,13 @@
+<?php
+
+namespace app\model\Entity\@@entityname@@;
+
+use app\model\core\DomainObject;
+
+class @@entityname@@ extends DomainObject
+{
+    /**
+     * auto-generated empty class
+     */
+
+}

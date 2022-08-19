@@ -1,6 +1,7 @@
 <?php
 
 use bin\Command\AppBuild\BuildCommand;
+use bin\Command\CreateDomainModelEntity\CommandCreate;
 use bin\Command\Migration\CommandCreateMigration;
 use bin\Command\Migration\CommandMigrate;
 use bin\Command\Migration\CommandMigrationStatus;
@@ -24,5 +25,6 @@ $application->add($container->get(CommandMigrate::class));
 $application->add($container->get(CommandCreateMigration::class));
 $application->add($container->get(CommandRollBack::class));
 $application->add($container->get(CommandMigrationStatus::class));
+$application->add($container->get(CommandCreate::class));
 
 $application->run();
