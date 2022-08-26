@@ -41,6 +41,41 @@ class MigrationsManager
     }
 
 
+    /**
+     * @return AbstractMigration[]|null
+     * @throws \Exception
+     */
+    public function getMigrationsToApply(): ?array
+    {
+        $currentMigrationIndex = $this->getCurrentMigrationIndex();
+        $lastMigrationIndex = count($this->migrationList->get()) - 1;
+        $migrationsToApply = [];
+
+        // Если индексы совпадают - последняя миграция уже была применена, ничего делать не нужно.
+        if($currentMigrationIndex === $lastMigrationIndex) {
+            return null;
+        }
+
+
+        if(is_null($currentMigrationIndex)) {
+            // Если миграций еще не было, придет пустой (null) индекс из БД. Вручную поставим ему 0 - первый индекс, чтобы в цикле использовать.
+            $currentMigrationIndex = 0;
+        } else {
+            // В остальных, обычных случаях мы текущий индекс сдвигаем вперед на первую не примененную миграцию
+            $currentMigrationIndex++;
+        }
+
+        while ($currentMigrationIndex <= $lastMigrationIndex) {
+            $className = "app\migrations\\" . $this->migrationList->get()[$currentMigrationIndex];
+            $migration = new $className;
+            $migrationsToApply[] = $migration;
+            $currentMigrationIndex++;
+        }
+
+        return $migrationsToApply ?? null;
+    }
+
+
 
     /** Push all new migrations */
     public function applyNewMigrations(): array
