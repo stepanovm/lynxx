@@ -20,7 +20,7 @@ class CommandCreate extends Command
     {
         try {
             $responseInfo = "";
-            $entityName = ucfirst(strtolower($input->getArgument('name')));
+            $entityName = ucfirst($input->getArgument('name'));
 
             // create directories
             mkdir(__DIR__ . '/../../../app/model/Entity/' . $entityName . '/mapper/', 0777, true);

@@ -7,6 +7,7 @@ namespace Lynxx;
 use bin\Command\AppBuild\AssetsListManager;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Lynxx\Exception\NotFoundException;
+use Lynxx\Exception\ResourceNotFoundException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -53,8 +54,7 @@ class View
     }
 
     /**
-     * @param string $layout path to layout file
-     * <br /><br />Note: layout file must be placed here <b>/app/templates/layout/</b>
+     * @param string $layout path to layout file <br /><br />Note: layout file must be placed here <b>/app/templates/layout/</b>
      */
     public function setLayout(string $layout): void
     {
@@ -90,8 +90,7 @@ class View
     {
         /** if file not exist, write log and return */
         if (!file_exists(__DIR__ . '/../web' . $css_file_path)) {
-            //Utils::writeLog('app_errors', 'не удалось подключить css: '.$css_file_path.'. Файл не найден');
-            return;
+            throw new ResourceNotFoundException('не удалось подключить css: '.$css_file_path.'. Файл не найден');
         }
 
         if ($this->container->get('config')['application_mode'] === 'DEV') {
@@ -99,9 +98,13 @@ class View
         }
     }
 
+
     /**
-     * register js tag.
-     * @param string $js path to js file
+     * @param string $js
+     * @param array $params ('nocompress', 'async')
+     * @return void
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function registerJs(string $js, array $params)
     {
@@ -151,6 +154,19 @@ class View
             ->withAddedHeader('X-Content-Type-Options', 'nosniff')
             ->withAddedHeader('Referrer-Policy', 'no-referrer-when-downgrade');
     }
+
+
+
+    public function printResponse(ResponseInterface $response)
+    {
+        foreach ($response->getHeaders() as $k => $values) {
+            foreach ($values as $v) {
+                header(sprintf('%s: %s', $k, $v), false);
+            }
+        }
+        echo $response->getBody();
+    }
+
 
     /**
      * Method add component html content in $this->components array.

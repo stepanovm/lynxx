@@ -3,6 +3,7 @@
 
 namespace Lynxx;
 
+use Lynxx\Auth\Auth;
 use Lynxx\Router\RouteNotFoundException;
 use Lynxx\Router\Router;
 use Psr\Container\ContainerInterface;
@@ -35,6 +36,7 @@ class Lynxx
         $actionName = $router->getActionName();
         $queryAttributes = $router->getAttributes();
 
+
         $request = $router->getRequest();
         foreach ($queryAttributes as $attribute => $value) {
             $request = $request->withAttribute($attribute, $value);
@@ -64,7 +66,9 @@ class Lynxx
     {
         /** System configuration */
         error_reporting(E_ALL);
-        //session_start();
+        set_exception_handler('\Lynxx\Exception\ExHandler::handle');
+        date_default_timezone_set('Europe/Moscow');
+        session_start();
 
         $dotenv = new Dotenv(true);
         $dotenv->load(__DIR__ . '/../.env');
@@ -73,6 +77,11 @@ class Lynxx
     public static function utils()
     {
 
+    }
+
+    public static function Auth(): Auth
+    {
+        return self::getContainer()->get(Auth::class);
     }
 
     public static function debugPrint($data): ?string

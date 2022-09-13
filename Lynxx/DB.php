@@ -3,6 +3,7 @@
 
 namespace Lynxx;
 
+use app\model\core\MyPdoStatement;
 use Lynxx\Container\Container;
 use PDO;
 
@@ -13,25 +14,31 @@ class DB
      */
     private static $pdo;
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
+
 
     /**
      * @return PDO
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public static function instance(): PDO
     {
         // create new PDO, if not exist
-        if(!isset(self::$pdo)){
+        if (!isset(self::$pdo)) {
             $container = new Container();
             $dbInfo = $container->get('config')['db'];
-            $dsn = $dbInfo['sqlType'].':host='.$dbInfo['host'].';dbname='.$dbInfo['dbname'].';charset='.$dbInfo['charset'];
-            $pdo_params = array (
+            $dsn = $dbInfo['sqlType'] . ':host=' . $dbInfo['host'] . ';dbname=' . $dbInfo['dbname'] . ';charset=' . $dbInfo['charset'];
+            $pdo_params = array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => TRUE
             );
             self::$pdo = new PDO("$dsn", $dbInfo['username'], $dbInfo['password'], $pdo_params);
-            self::$pdo->query('SET NAMES '.$dbInfo['charset']);
+            self::$pdo->query('SET NAMES ' . $dbInfo['charset']);
+            self::$pdo->setAttribute(\PDO::ATTR_STATEMENT_CLASS, [MyPdoStatement::class]);
         }
 
         return self::$pdo;
@@ -96,7 +103,6 @@ class DB
         $stmt->execute($args);
         return $stmt->rowCount();
     }
-
 
 
     /**

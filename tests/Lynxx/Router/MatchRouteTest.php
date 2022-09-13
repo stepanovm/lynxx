@@ -17,8 +17,7 @@ class MatchRouteTest extends TestCase
 {
     public function testRouteMatch()
     {
-        $request = (new ServerRequest())
-            ->withUri(new Uri('http://lynxx.loc/test/Maks/44'));
+        $request = (new ServerRequest())->withUri(new Uri('http://lynxx.loc/test/Maks/44'));
 
         $router = new Router($request, [
             '/test/(?<name>\w+)/(?<id>\d+)' => [HomeController::class, 'test'],

@@ -59,6 +59,7 @@ class MigrationsManager
 
         if(is_null($currentMigrationIndex)) {
             // Если миграций еще не было, придет пустой (null) индекс из БД. Вручную поставим ему 0 - первый индекс, чтобы в цикле использовать.
+            $this->migrationRemoteManager->createMigrationsTable();
             $currentMigrationIndex = 0;
         } else {
             // В остальных, обычных случаях мы текущий индекс сдвигаем вперед на первую не примененную миграцию

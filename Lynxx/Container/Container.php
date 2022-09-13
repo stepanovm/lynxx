@@ -69,7 +69,7 @@ class Container implements ContainerInterface
 
     public function has($id)
     {
-        // TODO: Implement has() method.
+        return array_key_exists($id, $this->definitions);
     }
 
 
