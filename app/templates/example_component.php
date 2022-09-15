@@ -1,6 +1,6 @@
 <?php
 // component is in View's context
-/** @var \Lynxx\View $this */
+/** @var \Lynxx\ViewInterface $this */
 
 // any php data
 $example_var = "component1";

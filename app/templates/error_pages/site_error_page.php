@@ -1,5 +1,5 @@
 <?php
-/** @var \Lynxx\View $this */
+/** @var \Lynxx\ViewInterface $this */
 
 /** @var string $errorMsg - required string variable */
 ?>

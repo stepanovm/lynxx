@@ -1,6 +1,6 @@
 <?php
+/** @var \Lynxx\ViewInterface $this */
 /** @var string $content rendered template */
-/** @var \Lynxx\View $this */
 ?>
 
 <!DOCTYPE html>

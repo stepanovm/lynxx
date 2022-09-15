@@ -4,6 +4,7 @@
 namespace Lynxx;
 
 use Lynxx\Auth\Auth;
+use Lynxx\Container\Container;
 use Lynxx\Router\RouteNotFoundException;
 use Lynxx\Router\Router;
 use Psr\Container\ContainerInterface;
@@ -22,6 +23,9 @@ class Lynxx
 
     public static function getContainer(): ContainerInterface
     {
+        if(!isset(self::$container)){
+            self::$container = new Container();
+        }
         return self::$container;
     }
 
@@ -72,11 +76,6 @@ class Lynxx
 
         $dotenv = new Dotenv(true);
         $dotenv->load(__DIR__ . '/../.env');
-    }
-
-    public static function utils()
-    {
-
     }
 
     public static function Auth(): Auth

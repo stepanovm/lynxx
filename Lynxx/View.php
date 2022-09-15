@@ -8,10 +8,11 @@ use bin\Command\AppBuild\AssetsListManager;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Lynxx\Exception\NotFoundException;
 use Lynxx\Exception\ResourceNotFoundException;
+use phpDocumentor\Reflection\Types\Mixed_;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class View
+class View implements ViewInterface
 {
     /** @var string $title text for <title> tag */
     protected $title;
@@ -43,37 +44,22 @@ class View
     }
 
 
-    /**
-     * add any data to $this->data
-     * @param string $key
-     * @param mixed $value
-     */
+
     public function addData(string $key, $value): void
     {
         $this->data[$key] = $value;
     }
 
-    /**
-     * @param string $layout path to layout file <br /><br />Note: layout file must be placed here <b>/app/templates/layout/</b>
-     */
     public function setLayout(string $layout): void
     {
         $this->layout = $layout;
     }
 
-    /**
-     * @param string $title just title text
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * add new head tag to $this->heads array.
-     * if tag already in array, just return;
-     * @param string $tag full tag for <head> block
-     */
     public function registerHeadsTag(string $tag): void
     {
         if (in_array($tag, $this->heads)) {
@@ -82,10 +68,7 @@ class View
         $this->heads[] = $tag;
     }
 
-    /**
-     * register css tag.
-     * @param string $css_file_path
-     */
+
     public function registerCss(string $css_file_path): void
     {
         /** if file not exist, write log and return */
@@ -99,13 +82,6 @@ class View
     }
 
 
-    /**
-     * @param string $js
-     * @param array $params ('nocompress', 'async')
-     * @return void
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     */
     public function registerJs(string $js, array $params)
     {
         /** if file not exist, write log and return */
@@ -156,7 +132,6 @@ class View
     }
 
 
-
     public function printResponse(ResponseInterface $response)
     {
         foreach ($response->getHeaders() as $k => $values) {
@@ -168,13 +143,6 @@ class View
     }
 
 
-    /**
-     * Method add component html content in $this->components array.
-     *
-     * @param string $name component_name it will use as key in components array
-     * @param string $component_file path to component file
-     * @param array $data some data, can be used at component as $data['key']
-     */
     public function registerComponent(string $name, string $component_file, array $data = [])
     {
         extract($data);
@@ -192,14 +160,15 @@ class View
         ob_end_clean();
     }
 
-    /** @return string $title title text */
-    public function getTitle()
+
+
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /** @return string $headshtml all registered head tags as string */
-    public function getHeads()
+
+    public function getHeads(): string
     {
         $heads = $this->heads;
         $headsHtml = '';
@@ -235,12 +204,9 @@ class View
         return $assetsHeadHtml;
     }
 
-    /**
-     * return component html code if exist
-     * @param string $name
-     * @return string component html code or ''
-     */
-    public function showComponent($name)
+
+
+    public function showComponent(string $name): string
     {
         if (!array_key_exists($name, $this->components)) {
             return '';
@@ -248,11 +214,8 @@ class View
         return $this->components[$name];
     }
 
-    /**
-     * @param string $name
-     * @return boolean
-     */
-    public function hasComponent($name)
+
+    public function hasComponent(string $name): bool
     {
         if (!array_key_exists($name, $this->components)) {
             return false;
