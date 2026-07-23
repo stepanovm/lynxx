@@ -52,6 +52,7 @@ class Lynxx
     {
         /** System configuration */
         error_reporting(E_ALL);
+        date_default_timezone_set('Europe/Moscow');
         //session_start();
 
         $dotenv = new Dotenv(true);
