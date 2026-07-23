@@ -83,13 +83,16 @@ class GothicCodeResolver
                 $step++;
                 $currentPlate = $history[0];
                 $solution[$step] = [
-                    'plate' => $currentPlate,
+                    'plate' => $currentPlate + 1,
                     'direction' => $history[1] === 1 ? 'Налево' : 'Направо',
                     'count' => 1,
                 ];
             } else {
                 $solution[$step]['count']++;
             }
+        }
+        foreach ($solution as &$item) {
+            $item['text'] = 'Пластина ' . $item['plate'] . ' ' . mb_strtoupper($item['direction']) . ' x' . $item['count'];
         }
 
         $this->solution['readable'] = $solution;
