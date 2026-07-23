@@ -1,0 +1,10 @@
+<?php
+
+namespace app\model\Entity\@@entityname@@\mapper;
+
+use app\model\core\TraitDefferedCollection;
+
+class @@entityname@@DefferedCollection extends @@entityname@@Collection
+{
+    use TraitDefferedCollection;
+}

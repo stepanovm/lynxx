@@ -4,6 +4,7 @@
 namespace Lynxx\Router;
 
 
+use Lynxx\Lynxx;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
