@@ -127,38 +127,37 @@ class GothicCodeResolver
         $visited = [];
         $visited[$this->serializeState($this->getStartPosition()['position'])] = true;
 
+        $solvesCount = 0;
+
         while(!empty($queue)) {
 
             $position = array_shift($queue);
 
             for ($plateNum = 0; $plateNum < $this->platesCount; $plateNum++) {
-                if ($pos = $this->movePlate($position, $plateNum, 1)) {
-                    if ($this->isSolved($pos)) {
-                        $this->solution = $pos;
-                        return;
-                    }
-                    $key = $this->serializeState($pos['position']);
-                    if (!isset($visited[$key])) {
-                        $visited[$key] = true;
-                        $queue[] = $pos;
-                    }
-                }
-                if ($pos = $this->movePlate($position, $plateNum, -1)) {
-                    if ($this->isSolved($pos)) {
-                        $this->solution = $pos;
-                        return;
-                    }
-                    $key = $this->serializeState($pos['position']);
-                    if (!isset($visited[$key])) {
-                        $visited[$key] = true;
-                        $queue[] = $pos;
+                foreach ([-1, 1] as $direction) {
+                    if ($pos = $this->movePlate($position, $plateNum, $direction)) {
+                        if ($this->isSolved($pos)) {
+                            if ($solvesCount > 6) {
+                                $this->solution = $pos;
+                                return;
+                            } else {
+                                $solvesCount++;
+                                $this->solution = $pos;
+                                echo "<p>SOLUTION ".$solvesCount."</p>";
+                                echo Utils::debugObj($this->getSolution());
+                                continue;
+                            }
+                        }
+                        $key = $this->serializeState($pos['position']);
+                        if (!array_key_exists($key, $visited)) {
+                            $visited[$key] = true;
+                            $queue[] = $pos;
+                        }
                     }
                 }
             }
 
-
-
-            if ($this->limit > 1000000) {
+            if ($this->limit > 10000000) {
                 $this->error = 'limit over: ' . $this->limit;
                 return;
             }
@@ -185,13 +184,8 @@ class GothicCodeResolver
             }
         }
 
-
         foreach ($position['position'] as $x => $y) {
-            if ($x === $plateNum) {
-                $pos['position'][$x] = $y + $direction;
-            } else {
-                $pos['position'][$x] = $y + $this->rulesMatrix[$plateNum][$x] * $direction;
-            }
+            $pos['position'][$x] = $y + $this->rulesMatrix[$plateNum][$x] * $direction;
             if ($pos['position'][$x] < 0 || $pos['position'][$x] > 6) {
                 return false;
             }

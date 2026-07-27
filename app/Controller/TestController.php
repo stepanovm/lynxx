@@ -40,33 +40,35 @@ class TestController extends AbstractController
             . '<br />hello from test controller with request:<br/> <pre>'
             . print_r($this->request->getParsedBody(), true)
             . '</pre>'
-            . '<p>'.print_r($this->request->getQueryParams(), true) .'</p>'
+            . '<p>' . print_r($this->request->getQueryParams(), true) . '</p>'
         );
     }
-
-
 
 
     public function testGothic()
     {
 
-        $position = [1,1,5,4,1,3];
+        $position = [3, 1, 7, 6, 2];
+
+
         $rules = [
-            [0, -1, -1, -1, 0],
-            [0, 0, 1, -1, -1],
-            [0, 0, 0, 1, 0],
-            [0, 0, 0, 0, -1],
-            [0, 0, 0, 0, 0],
-        ];
-        $rules = [
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, -1, 0, 0],
-            [0, 0, 0, -1, 0, 0],
-            [1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 1],
-            [1, 0, 0, -1, 0, 0],
+            [1, -1, -1, -1, -1],
+            [-1, 1, 0, 0, 0],
+            [-1, 0, 1, 0, 0],
+            [0, 0, 1, 1, 0],
+            [1, 0, 0, 0, 1],
         ];
 
+        /*
+        $rules = [
+            [1, -1, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0],
+            [0, 0, 1, -1, 0, 0],
+            [0, 0, 1, 1, 0, 0],
+            [0, 0, 0, 1, 1, 1],
+            [0, -1, 0, 0, 0, 1],
+        ];
+        */
         $this->gothic->init($position, $rules);
 
         if ($this->gothic->resolve()) {
@@ -79,7 +81,7 @@ class TestController extends AbstractController
 
     }
 
-
+    //public function testGothic()
     public function testGothic_Alisa()
     {
         // --- Пример использования ---
@@ -95,18 +97,18 @@ class TestController extends AbstractController
         Записываем связи как [индекс, множитель]:
         */
         $connections = [
-            0 => [[0, 1]],
-            1 => [[1, 1], [3, -1]],
+            0 => [[0, 1], [1, -1]],
+            1 => [[1, 1]],
             2 => [[2, 1], [3, -1]],
-            3 => [[3, 1], [0, 1]],
-            4 => [[4, 1], [5, 1]],
-            5 => [[5, 1], [0, 1], [3, -1]],
+            3 => [[3, 1], [2, 1]],
+            4 => [[4, 1], [3, 1], [5, 1]],
+            5 => [[5, 1], [1, -1]],
         ];
 
         $solver = new LockSolver(6, $connections);
 
         // Стартовое состояние (пример)
-        $startState = [-3, -3, 1, 0, -3, -1];
+        $startState = [-3, -1, 0, -3, 1, -1];
 
         $solution = $solver->solve($startState);
 
@@ -120,7 +122,6 @@ class TestController extends AbstractController
             }
         }
     }
-
 
 
 }
