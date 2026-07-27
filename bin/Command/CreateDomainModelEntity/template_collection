@@ -1,9 +1,9 @@
 <?php
 
-namespace app\model\Entity\@@entityname@@\mapper;
+namespace app\model\Entity\$$entityPath$$@@entityname@@\mapper;
 
 use app\model\core\Collection;
-use app\model\Entity\@@entityname@@\@@entityname@@;
+use app\model\Entity\$$entityPath$$@@entityname@@\@@entityname@@;
 
 class @@entityname@@Collection extends Collection
 {

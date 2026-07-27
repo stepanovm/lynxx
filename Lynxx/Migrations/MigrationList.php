@@ -9,7 +9,7 @@ class MigrationList
 
     public function __construct()
     {
-        $this->pathToListFile = __DIR__ . '/../../app/migrations/list';
+        $this->pathToListFile = __DIR__ . '/../../app/model/migrations/list';
         if(!file_exists($this->pathToListFile)) {
             $this->list = [];
             return;

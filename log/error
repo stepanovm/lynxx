@@ -1,0 +1,96 @@
+_________________
+2026-07-27 14:07:24
+Request url: http://lynxx.loc/favicon.ico
+Message: route not found
+***** Request info: 
+user ip: 127.0.0.1
+useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 YaBrowser/26.6.0.0 Safari/537.36
+***** Trace:
+currfile:C:\OSPanel\domains\lynxx\Lynxx\Router\Router.php; line: 42
+file: C:\OSPanel\domains\lynxx\app\config\dependencies.php; line: 25
+file: C:\OSPanel\domains\lynxx\Lynxx\Container\Container.php; line: 28
+file: C:\OSPanel\domains\lynxx\Lynxx\Lynxx.php; line: 37
+file: C:\OSPanel\domains\lynxx\web\index.php; line: 17
+_________________
+2026-07-27 14:07:24
+Request url: http://lynxx.loc/apple-touch-icon.png
+Message: route not found
+***** Request info: 
+user ip: 127.0.0.1
+useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 YaBrowser/26.6.0.0 Safari/537.36
+***** Trace:
+currfile:C:\OSPanel\domains\lynxx\Lynxx\Router\Router.php; line: 42
+file: C:\OSPanel\domains\lynxx\app\config\dependencies.php; line: 25
+file: C:\OSPanel\domains\lynxx\Lynxx\Container\Container.php; line: 28
+file: C:\OSPanel\domains\lynxx\Lynxx\Lynxx.php; line: 37
+file: C:\OSPanel\domains\lynxx\web\index.php; line: 17
+_________________
+2026-07-27 14:07:22
+Request url: http://lynxx.loc/request/getInitContent
+Message: service Lynxx\Auth\UserDbManagerInterface not found
+***** Request info: 
+user ip: 127.0.0.1
+useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 YaBrowser/26.6.0.0 Safari/537.36
+***** Trace:
+currfile:C:\OSPanel\domains\lynxx\Lynxx\Container\Container.php; line: 56
+file: C:\OSPanel\domains\lynxx\Lynxx\Container\Container.php; line: 42
+file: C:\OSPanel\domains\lynxx\Lynxx\Lynxx.php; line: 83
+file: C:\OSPanel\domains\lynxx\app\Controller\request\DynamicLoadController.php; line: 26
+file: C:\OSPanel\domains\lynxx\Lynxx\Lynxx.php; line: 56
+file: C:\OSPanel\domains\lynxx\web\index.php; line: 17
+_________________
+2026-07-27 14:07:22
+Request url: http://lynxx.loc/favicon.ico
+Message: route not found
+***** Request info: 
+user ip: 127.0.0.1
+referer: http://lynxx.loc/request/getInitContent
+useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 YaBrowser/26.6.0.0 Safari/537.36
+***** Trace:
+currfile:C:\OSPanel\domains\lynxx\Lynxx\Router\Router.php; line: 42
+file: C:\OSPanel\domains\lynxx\app\config\dependencies.php; line: 25
+file: C:\OSPanel\domains\lynxx\Lynxx\Container\Container.php; line: 28
+file: C:\OSPanel\domains\lynxx\Lynxx\Lynxx.php; line: 37
+file: C:\OSPanel\domains\lynxx\web\index.php; line: 17
+_________________
+2026-07-27 14:07:22
+Request url: http://lynxx.loc/favicon.ico
+Message: route not found
+***** Request info: 
+user ip: 127.0.0.1
+referer: http://lynxx.loc/request/getInitContent
+useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 YaBrowser/26.6.0.0 Safari/537.36
+***** Trace:
+currfile:C:\OSPanel\domains\lynxx\Lynxx\Router\Router.php; line: 42
+file: C:\OSPanel\domains\lynxx\app\config\dependencies.php; line: 25
+file: C:\OSPanel\domains\lynxx\Lynxx\Container\Container.php; line: 28
+file: C:\OSPanel\domains\lynxx\Lynxx\Lynxx.php; line: 37
+file: C:\OSPanel\domains\lynxx\web\index.php; line: 17
+_________________
+2026-07-27 14:07:22
+Request url: http://lynxx.loc/favicon.ico
+Message: route not found
+***** Request info: 
+user ip: 127.0.0.1
+referer: http://lynxx.loc/request/getInitContent
+useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 YaBrowser/26.6.0.0 Safari/537.36
+***** Trace:
+currfile:C:\OSPanel\domains\lynxx\Lynxx\Router\Router.php; line: 42
+file: C:\OSPanel\domains\lynxx\app\config\dependencies.php; line: 25
+file: C:\OSPanel\domains\lynxx\Lynxx\Container\Container.php; line: 28
+file: C:\OSPanel\domains\lynxx\Lynxx\Lynxx.php; line: 37
+file: C:\OSPanel\domains\lynxx\web\index.php; line: 17
+_________________
+2026-07-27 14:07:22
+Request url: http://lynxx.loc/favicon.ico
+Message: route not found
+***** Request info: 
+user ip: 127.0.0.1
+referer: http://lynxx.loc/request/getInitContent
+useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 YaBrowser/26.6.0.0 Safari/537.36
+***** Trace:
+currfile:C:\OSPanel\domains\lynxx\Lynxx\Router\Router.php; line: 42
+file: C:\OSPanel\domains\lynxx\app\config\dependencies.php; line: 25
+file: C:\OSPanel\domains\lynxx\Lynxx\Container\Container.php; line: 28
+file: C:\OSPanel\domains\lynxx\Lynxx\Lynxx.php; line: 37
+file: C:\OSPanel\domains\lynxx\web\index.php; line: 17

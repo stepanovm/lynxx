@@ -1,6 +1,6 @@
 <?php
 
-namespace app\model\Entity\@@entityname@@\mapper;
+namespace app\model\Entity\$$entityPath$$@@entityname@@\mapper;
 
 use app\model\core\TraitDefferedCollection;
 

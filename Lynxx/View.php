@@ -8,7 +8,6 @@ use bin\Command\AppBuild\AssetsListManager;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Lynxx\Exception\NotFoundException;
 use Lynxx\Exception\ResourceNotFoundException;
-use phpDocumentor\Reflection\Types\Mixed_;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -143,6 +142,12 @@ class View implements ViewInterface
     }
 
 
+    /**
+     * @param string $name
+     * @param string $component_file (root - /app/templates/)
+     * @param array $data
+     * @return void
+     */
     public function registerComponent(string $name, string $component_file, array $data = [])
     {
         extract($data);
@@ -161,7 +166,9 @@ class View implements ViewInterface
     }
 
 
-
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
