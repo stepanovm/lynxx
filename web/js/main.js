@@ -1,6 +1,3 @@
-function c1() {
-    console.log('from_main');
-}
 
 window.addEventListener('load', function() {
     initDynamicContent();
@@ -20,4 +17,3 @@ function initDynamicContent(){
         }
     });
 }
-

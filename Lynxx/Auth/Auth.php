@@ -114,8 +114,7 @@ class Auth
      * @param UserInterface $user
      * @return void
      */
-    private function addSessionUserData(UserInterface $user)
-    {
+    private function addSessionUserData(UserInterface $user) {
         $_SESSION['auth'] = true;
         $_SESSION['user'] = [
             'id' => $user->getId(),
@@ -123,8 +122,6 @@ class Auth
             //'password' => $user->getPassword(),
             //'email' => $user->getEmail(),
         ];
-
-
     }
 
 
@@ -206,6 +203,11 @@ class Auth
     public static function createUniqId()
     {
         return self::passEncrypt(uniqid(rand(),1));
+    }
+
+    public function getCurrentUser(): ?UserInterface
+    {
+        return $this->userDbManager->getUserById($_SESSION['user']['id']);
     }
 
 }

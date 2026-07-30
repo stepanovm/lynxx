@@ -1,6 +1,9 @@
 <?php
 /** @var \Lynxx\ViewInterface $this */
 /** @var string $content rendered template */
+
+$this->registerJs('/js/jquery-3.6.3.min.js', ['async', 'nocompress']);
+$this->registerJs('/js/main.js', ['async']);
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +19,8 @@
 <body>
 
 <div class="header">HEADER</div>
+
+<div class="header-authorization"></div>
 
 <div>SOURCE: <?= $this->templatePath ?></div>
 <?= $content ?>

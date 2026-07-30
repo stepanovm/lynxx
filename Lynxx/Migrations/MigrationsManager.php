@@ -51,6 +51,9 @@ class MigrationsManager
         $lastMigrationIndex = count($this->migrationList->get()) - 1;
         $migrationsToApply = [];
 
+        echo "\n\n" . '$currentMigrationIndex ::: ' . $currentMigrationIndex;
+        echo "\n\n" . '$lastMigrationIndex ::: ' . $lastMigrationIndex;
+
         // Если индексы совпадают - последняя миграция уже была применена, ничего делать не нужно.
         if($currentMigrationIndex === $lastMigrationIndex) {
             return null;
@@ -67,7 +70,7 @@ class MigrationsManager
         }
 
         while ($currentMigrationIndex <= $lastMigrationIndex) {
-            $className = "app\migrations\\" . $this->migrationList->get()[$currentMigrationIndex];
+            $className = "app\model\migrations\\" . $this->migrationList->get()[$currentMigrationIndex];
             $migration = new $className;
             $migrationsToApply[] = $migration;
             $currentMigrationIndex++;
@@ -96,7 +99,7 @@ class MigrationsManager
         }
 
         while ($currentMigrationIndex <= $lastMigrationIndex) {
-            $className = "app\migrations\\" . $this->migrationList->get()[$currentMigrationIndex];
+            $className = "app\model\migrations\\" . $this->migrationList->get()[$currentMigrationIndex];
             $migration = new $className;
             $this->migrationRemoteManager->upMigration($migration);
             $appliedMigrations[] = $migration;
@@ -114,7 +117,7 @@ class MigrationsManager
         $className = preg_replace('#^.*\\\\#', '', get_class($migration));
         $this->migrationList->remove($className);
 
-        unlink(__DIR__ . '/../../app/migrations/'.$className.'.php');
+        unlink(__DIR__ . '/../../app/model/migrations/'.$className.'.php');
     }
 
 }

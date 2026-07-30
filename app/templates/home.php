@@ -4,12 +4,6 @@
 
 $this->setLayout('main.php');
 
-$this->registerComponent('exampleComponent', 'example_component.php');
-
-// $this->registerJs('/js/jquery-3.5.1.min.js', ['async', 'nocompress']);
-// $this->registerJs('/js/home_noasync.js', []);
-$this->registerJs('/js/main.js', ['async']);
-
 $this->registerCss('/css/main.css');
 ?>
 

@@ -2,6 +2,7 @@
 
 namespace bin\Command\Migration;
 
+use Lynxx\Lynxx;
 use Lynxx\Migrations\MigrationList;
 use Lynxx\Migrations\MigrationRemoteManager;
 use Lynxx\Migrations\MigrationsManager;
@@ -29,7 +30,7 @@ class CommandMigrationStatus extends Command
     protected function configure()
     {
         $this->setName('migrate:status');
-        $this->setDescription('getting full current mogrations info');
+        $this->setDescription('getting full current migrations info');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -39,8 +40,7 @@ class CommandMigrationStatus extends Command
 
         $output->writeln('db version ::: ' . $list[$currentMigrationIndex] ?? 'NULL');
         $output->writeln('last unsent migration ::: ' . $list[count($list) - 1]);
-        $output->writeln('unsent migrations count ::: ' . (count($list) - ($currentMigrationIndex ? ++$currentMigrationIndex : 0)));
-
+        $output->writeln('unsent migrations count ::: ' . ((count($list) - 1) - $currentMigrationIndex));
 
         return Command::SUCCESS;
     }

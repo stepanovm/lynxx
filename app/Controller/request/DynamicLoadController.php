@@ -33,7 +33,9 @@ class DynamicLoadController extends AbstractController
             ]
         ];
 
-        $response = new JsonResponse(json_encode($dynamicComponents['html']));
+        // echo json_encode($dynamicComponents);
+
+        $response = new JsonResponse($dynamicComponents);
         echo $response->getBody();
     }
 

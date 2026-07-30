@@ -42,4 +42,10 @@ return [
     LoggerInterface::class => function(ContainerInterface $container) {
         return $container->get(\Lynxx\Logger::class);
     },
+    \Lynxx\Auth\UserDbManagerInterface::class => function(ContainerInterface $container) {
+        return $container->get(\app\model\Entity\User\User\mapper\UserMapper::class);
+    },
+    \Lynxx\Auth\UserInterface::class => function(ContainerInterface $container) {
+        return $container->get(\app\model\Entity\User\User\User::class);
+    }
 ];
