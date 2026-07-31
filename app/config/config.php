@@ -18,4 +18,5 @@ return [
         'charset' => getenv('DB_CHARSET'),
         'sqlType' => getenv('DB_DRIVER'),
     ),
+    'ghgh' => 'ghp_kckRPRuZavFc0k4unkind7796PBcpdxdM8V0St00clJc',
 ];

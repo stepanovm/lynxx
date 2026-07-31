@@ -5,6 +5,7 @@ namespace Lynxx\Container;
 
 
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
 
 class Container implements ContainerInterface
 {
@@ -38,8 +39,13 @@ class Container implements ContainerInterface
             if (($constructor = $reflection->getConstructor()) !== null) {
 
                 foreach ($constructor->getParameters() as $parameter) {
-                    if ($paramClass = $parameter->getClass()) {
-                        $arguments[] = $this->get($paramClass->getName());
+                    $reflectionClass = $parameter->getType()
+                    && !$parameter->getType()->isBuiltin()
+                        ? new ReflectionClass($parameter->getType()->getName())
+                        : null;
+
+                    if ($reflectionClass) {
+                        $arguments[] = $this->get($reflectionClass->getName());
                     } else if ($parameter->isArray()) {
                         $arguments[] = [];
                     } else if ($parameter->isDefaultValueAvailable()) {
